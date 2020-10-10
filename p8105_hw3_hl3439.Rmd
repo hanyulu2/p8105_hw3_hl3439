@@ -166,6 +166,8 @@ In general, this patient has a decreasing trend in total activities.  This patie
 
 # Problem 3
 
+There are `r nrow(ny_noaa)` rows and `r ncol(ny_noaa)` columns in this dataset. This dataset contains `r names(ny_noaa)`.  This dataset contains five core variables for all New York state weather stations from January 1, 1981 through December 31, 2010.  Each weather station may collect only a subset of these variables, and therefore the resulting dataset contains extensive missing data.  Missing data can result in a lot of NAs in the dataset, which makes it hard to manipulate data.
+
 ```{r}
 library(p8105.datasets)
 data("ny_noaa")
@@ -190,7 +192,7 @@ ny_noaa %>%
   
 ```
 
-I convert tenths of Celcius degree to Celcius degree to make it easier to understand.The most commonly observed value for snowfall is 0 because New York has a higher probability of not snowing all over the year.
+I convert tenths of Celcius degree to Celcius degree to make it easier to understand.  The most commonly observed value for snowfall is 0 because New York has a higher probability of not snowing all over the year.
 
 ```{r}
 ny_noaa %>% 
@@ -216,7 +218,7 @@ ny_noaa %>%
   theme(legend.position = "none")
 ```
 
-The temperature of January is around 0 degrees C with fluctuations, while temperature of July is around 25 degrees C with smoother line.  There are extremely cold Januarys in 1982 and 2005, and an unusually cool July in 1988.
+The temperature of January is around 0 degrees C with fluctuations, while temperature of July is around 25 degrees C with smoother line.  For outliers, here are extremely cold Januarys in 1982 and 2005, and an unusually cool July in 1988.
 
 ```{r}
 library(patchwork)
