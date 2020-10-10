@@ -218,5 +218,46 @@ ny_noaa %>%
 
 The temperature of January is around 0 degrees C with fluctuations, while temperature of July is around 25 degrees C with smoother line.  There are extremely cold Januarys in 1982 and 2005, and an unusually cool July in 1988.
 
+```{r}
+library(patchwork)
+library(ggridges)
+
+tmax_tmin = 
+ny_noaa %>% 
+  mutate(
+    year = lubridate::year(date), 
+    month = lubridate::month(date), 
+    day = lubridate::day(date),
+    tmax = as.numeric(tmax),
+    tmax = tmax/10,
+    tmin = as.numeric(tmin),
+    tmin = tmin/10
+  ) %>% 
+  drop_na(tmax,tmin) %>% 
+  select(-date) %>% 
+  ggplot(aes(x = tmax, y = tmin)) +
+  geom_bin2d() +
+  theme(legend.position = "none")
+
+snow_dist =
+  ny_noaa %>% 
+  mutate(
+    year = lubridate::year(date), 
+    month = lubridate::month(date), 
+    day = lubridate::day(date),
+    tmax = as.numeric(tmax),
+    tmax = tmax/10,
+    tmin = as.numeric(tmin),
+    tmin = tmin/10
+  ) %>% 
+  select(-date) %>% 
+  filter(snow > 0 & snow <100) %>% 
+  ggplot(aes(x = year, fill = "red")) + 
+  geom_density(alpha = .5) +
+  theme(legend.position = "none") +
+  ylab("count")
+
+tmax_tmin + snow_dist
+```
 
 
